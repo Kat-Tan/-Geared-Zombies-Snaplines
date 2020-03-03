@@ -20,13 +20,12 @@ bool AimTarget_IsTargetVisible(int localClientNum, centity_s* targetEnt, const c
 }
 void SnapLines() {
 	getStructs(); //fills our structs or we'll crash
-	Functions fuc; //Creates the fuc variable from functions 
 	for (int i = 0; i < 1023; i++) {
 		vec2_t Pos, Spine;
 			if (centity[i].pose.eType == entityType_t::ET_ACTOR && centity[i].currentEntity.alive > 0) {  //Checks if the target is a zombie and is alive
-				vec3_t SpineUpper = fuc.AimTarget_GetTagPos(i, "j_helmet"); //Creates our vector3 that checks for the model tag that we entered aka the helmet(top of the head)
-				if (fuc.WorldToScreen(centity[i].pose.origin, &Pos)) {
-					if (fuc.WorldToScreen(SpineUpper, &Spine)) {
+				vec3_t SpineUpper = Engine.Function.AimTarget_GetTagPos(i, "j_helmet"); //Creates our vector3 that checks for the model tag that we entered aka the helmet(top of the head)
+				if (Engine.Function.WorldToScreen(centity[i].pose.origin, &Pos)) {
+					if (Engine.Function.WorldToScreen(SpineUpper, &Spine)) {
 						//	Engine.Render.DrawLine(vec2_t(context.screenWidth / 2, context.screenHeight), Spine, convertToFloat(Color_t(1,0,0,1), testing));					
 						Engine.Render.DrawLine(vec2_t(context.screenWidth / 2, context.screenHeight), Spine, AimTarget_IsTargetVisible(0, &centity[i], "j_helmet") ? Color_t(0, 1, 0, 1) : (Color_t(1, 0, 0, 1)));
 						/* Draws the line to the zombies using the tag we provided it earlier, draw line takes 3 paramaters first 2 being our x and y we want it to draw at ive set it so it is
